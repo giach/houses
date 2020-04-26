@@ -28,6 +28,4 @@ class House {
             Description $description
         """
     }
-
-
 }

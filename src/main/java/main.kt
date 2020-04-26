@@ -1,6 +1,10 @@
 package main.java
 
 import org.jsoup.Jsoup
+import java.sql.Connection
+import java.sql.DriverManager
+import java.sql.Statement
+
 
 fun getHouses(link: String): MutableList<House> {
     var houses = mutableListOf<House>()
@@ -36,13 +40,13 @@ fun getHouses(link: String): MutableList<House> {
                 }
             }
         }
-        houses.add(house)
+        if (house.id != null)
+            houses.add(house)
     }
     return houses
 }
 
 fun main() {
-    print("hi")
 
     val imob = "https://www.imobiliare.ro/vanzare-apartamente/bucuresti?pagina="
     val last = 1
@@ -53,6 +57,13 @@ fun main() {
     }
     for (h in houses) {
         println(h.toString())
+    }
+
+    val conn = get_connection()
+    if (conn != null) {
+        for (h in houses) {
+            add_house(h, conn)
+        }
     }
 
 }
