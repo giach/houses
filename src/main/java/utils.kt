@@ -21,6 +21,10 @@ fun getText(elem: Element, className: String): String {
     return elem.getElementsByClass(className).text()
 }
 
+fun getText(elem: Element): String {
+    return elem.text()
+}
+
 fun isRoomNr(elem: String): Boolean {
     val pattern = "camer".toRegex()
     return pattern.containsMatchIn(elem)

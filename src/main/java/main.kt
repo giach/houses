@@ -1,10 +1,6 @@
 package main.java
 
 import org.jsoup.Jsoup
-import java.sql.Connection
-import java.sql.DriverManager
-import java.sql.Statement
-
 
 fun getHouses(link: String): MutableList<House> {
     var houses = mutableListOf<House>()
@@ -25,7 +21,10 @@ fun getHouses(link: String): MutableList<House> {
             house.price = getText(it, "pret-mare")
             house.currency = getText(it, "tva-luna")
         }
-
+        val hAddresses = box.select(".localizare")
+        hAddresses.forEach {
+            house.address = getText(it)
+        }
         val hCharacteristics = box.select("ul.caracteristici")
         hCharacteristics.forEach {
             val apCharcs = it.select("li")
@@ -49,21 +48,36 @@ fun getHouses(link: String): MutableList<House> {
 fun main() {
 
     val imob = "https://www.imobiliare.ro/vanzare-apartamente/bucuresti?pagina="
-    val last = 1
-    var houses = mutableListOf<House>()
+    val last = 100
+
+
+//    var house = House()
+//     house.id = " 2323"
+//    house.price = "3434"
+//     house.rooms = "3"
+//    house.area = "45"
+//    house.level = "4"
+//    house.blockType = "bloc no"
+//     house.link = "link"
+//    house.description = "descriere"
 
     for (page in 1..last) {
+        println("$imob$page")
+        var houses = mutableListOf<House>()
         houses = getHouses("$imob$page")
-    }
-    for (h in houses) {
-        println(h.toString())
-    }
 
-    val conn = get_connection()
-    if (conn != null) {
-        for (h in houses) {
-            add_house(h, conn)
+        val conn = get_connection()
+        if (conn != null) {
+            for (h in houses) {
+                add_house(h, conn)
+            }
         }
     }
+//    for (h in houses) {
+//        println(h.toString())
+//    }
+
+
+
 
 }

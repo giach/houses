@@ -11,6 +11,7 @@ class House {
     var roomType: String = ""
     var link: String = ""
     var description: String = ""
+    var address: String = ""
     var id: String? = null
 
 
@@ -25,6 +26,7 @@ class House {
             Area: $area
             Level: $level
             Block Type: $blockType
+            Location: $address
             Description $description
         """
     }

@@ -9,7 +9,7 @@ fun get_connection(): Connection? {
     val DB_URL = "jdbc:mysql://localhost:3306/imb"
 
     val USER = "root"
-    val PASS = ""
+    val PASS = "..."
 
     var conn: Connection? = null
     var stmt: Statement? = null
